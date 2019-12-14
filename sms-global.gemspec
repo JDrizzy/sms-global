@@ -9,15 +9,11 @@ Gem::Specification.new do |spec|
   spec.email         = ["jarrads@live.com"]
 
   spec.summary       = "Ruby library for SMS Global"
-  # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/JDrizzy/business-central"
   spec.license       = "MIT"
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
-  # spec.metadata["homepage_uri"] = spec.homepage
-  # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/JDrizzy/sms-global"
+  spec.metadata["changelog_uri"] = "https://github.com/JDrizzy/sms-global/releases"
 
   spec.files = Dir["LICENSE.txt", "README.md", 'lib/**/*']
   spec.test_files = `git ls-files -- test/*`.split("\n")
@@ -26,5 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "webmock", "~> 3.7", ">= 3.7.6"
   spec.add_development_dependency "byebug", "~> 11.0.0"
 end

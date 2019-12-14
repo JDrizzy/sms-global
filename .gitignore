@@ -7,4 +7,5 @@
 /spec/reports/
 /tmp/
 *.gem
+.byebug_history
 test.rb
