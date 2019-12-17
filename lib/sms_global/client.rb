@@ -9,6 +9,7 @@ module SmsGlobal
                 :url,
                 :api_version
 
+    object :auto_topup
     object :sms
     object :sms_incoming
     object :shared_pool
