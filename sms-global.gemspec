@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jarrads@live.com"]
 
   spec.summary       = "Ruby library for SMS Global"
-  spec.homepage      = "https://github.com/JDrizzy/business-central"
+  spec.homepage      = "https://github.com/JDrizzy/sms-global"
   spec.license       = "MIT"
 
   spec.metadata["source_code_uri"] = "https://github.com/JDrizzy/sms-global"

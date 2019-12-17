@@ -44,8 +44,8 @@ module SmsGlobal
       def self.build_authorization(client, method, action)
         timestamp = Time.now.to_i
         nonce = Digest::MD5.hexdigest((rand(36**7...36**8).to_s(36)))
-        raw = "#{timestamp}\n#{nonce}\n#{method.to_s.upcase}\n/#{client.api_version}/#{action}\n#{client.url}\n443\n\n"
-
+        raw = "#{timestamp}\n#{nonce}\n#{method.to_s.upcase}\n#{action}\n#{client.url}\n443\n\n"
+        
         sha_digest = OpenSSL::Digest.new("sha256")
         hash = OpenSSL::HMAC.digest(sha_digest, client.secret, raw)
         hash = Base64::strict_encode64(hash);
@@ -69,14 +69,12 @@ module SmsGlobal
 
           if Response.success?(request.code.to_i)
             return response
+          elsif Response.deleted?(request.code.to_i)
+            return true
           elsif Response.unauthorized?(request.code.to_i)
             raise UnauthorizedException.new
           else
-            if response[:error][:code].present?
-              raise ApiException.new("#{request.code} - #{response[:error][:code]} #{response[:error][:message]}")
-            else
-              raise ApiException.new("#{request.code} - API call failed")
-            end
+            raise ApiException.new("#{request.code} - API call failed")
           end
         end
       end

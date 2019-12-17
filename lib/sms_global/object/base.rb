@@ -7,9 +7,10 @@ module SmsGlobal
         @client = client
       end
 
-      def get(params = {})
+      def get(id, params = {})
         if method_supported?(:get)
-          Request.get(@client, build_url(child_path: object_name), object_name, params)
+          url, action = build_url(child_path: object_name, child_id: id)
+          Request.get(@client, url, action, params)
         else
           raise SmsGlobal::NoSupportedMethod.new(:get, object_methods)
         end
@@ -17,7 +18,8 @@ module SmsGlobal
 
       def post(params = {})
         if method_supported?(:post)
-          Request.post(@client, build_url(child_path: object_name), object_name, params)
+          url, action = build_url(child_path: object_name)
+          Request.post(@client, url, action, params)
         else
           raise SmsGlobal::NoSupportedMethod.new(:post, object_methods)
         end
@@ -25,7 +27,8 @@ module SmsGlobal
 
       def patch(id, params = {})
         if method_supported?(:patch)
-          Request.patch(@client, build_url(child_path: object_name, child_id: id), object_name, params)
+          url, action = build_url(child_path: object_name, child_id: id)
+          Request.patch(@client, url, action, params)
         else
           raise SmsGlobal::NoSupportedMethod.new(:patch, object_methods)
         end
@@ -33,7 +36,8 @@ module SmsGlobal
 
       def delete(id)
         if method_supported?(:delete)
-          Request.delete(@client, build_url(child_path: object_name), object_name)
+          url, action = build_url(child_path: object_name, child_id: id)
+          Request.delete(@client, url, action)
         else
           raise SmsGlobal::NoSupportedMethod.new(:delete, object_methods)
         end
@@ -43,10 +47,6 @@ module SmsGlobal
 
       def object_name
         self.class.const_get(:OBJECT)
-      end
-
-      def object_validation
-        self.class.const_defined?(:OBJECT_VALIDATION) ? self.class.const_get(:OBJECT_VALIDATION) : []
       end
 
       def object_methods
@@ -59,14 +59,23 @@ module SmsGlobal
       end
 
       def build_url(child_path: '', child_id: '')
-        url_builder(child_path, child_id)
+        url = url_builder(child_path, child_id)
+        action = action_builder(child_path, child_id)
+        return url, action
       end
 
       def url_builder(child_path = '', child_id = '')
         url = "#{@client.url}/#{client.api_version}"
-        url += "/#{child_path}" if !child_path.blank?
-        url += "(#{child_id})" if !child_id.blank?
+        url += "/#{child_path}" if !child_path.to_s.blank?
+        url += "/#{child_id}" if !child_id.to_s.blank?
         return url
+      end
+
+      def action_builder(child_path = '', child_id = '')
+        action = "/#{client.api_version}"
+        action += "/#{child_path}" if !child_path.to_s.blank?
+        action += "/#{child_id}" if !child_id.to_s.blank?
+        return action
       end
     end
   end

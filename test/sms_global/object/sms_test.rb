@@ -9,6 +9,27 @@ class SmsGlobal::Object::SmsTest < MiniTest::Test
     )
   end
 
+  def test_find
+    test_id = 1
+
+    stub_request(:get, /sms\/(#{test_id})/)
+      .to_return(
+        status: 200, 
+        body: {
+          id: test_id,
+          outgoing_id: test_id,
+          origin: '123',
+          destination: '123',
+          message: 'hello world',
+          status: 'delivered',
+          dateTime: ''
+        }.to_json
+      )
+    
+    response = @client.sms.find(test_id)
+    assert_equal response[:id], test_id
+  end
+
   def test_all
     stub_request(:get, /sms/)
       .to_return(
@@ -16,8 +37,8 @@ class SmsGlobal::Object::SmsTest < MiniTest::Test
         body: {
           messages: [
             {
-              id: 1,
-              outgoing_id: 1,
+              id: 2,
+              outgoing_id: 2,
               origin: '123',
               destination: '123',
               message: 'hello world',
@@ -30,7 +51,7 @@ class SmsGlobal::Object::SmsTest < MiniTest::Test
 
     
     response = @client.sms.all
-    assert_equal response[:messages].first[:id], 1
+    assert_equal response[:messages].first[:id], 2
   end
 
   def test_send
@@ -58,5 +79,14 @@ class SmsGlobal::Object::SmsTest < MiniTest::Test
       message: 'hello'
     })
     assert_equal response[:messages].first[:id], 2
+  end
+
+  def test_delete
+    test_id = 3
+
+    stub_request(:delete, /sms\/(#{test_id})/)
+      .to_return(status: 204, body: "")
+    
+    assert @client.sms.delete(test_id)
   end
 end

@@ -1,11 +1,10 @@
 module SmsGlobal
   module Object
-    class Sms < Base
-      OBJECT = 'sms'.freeze
+    class SmsIncoming < Base
+      OBJECT = 'sms-incoming'.freeze
 
       OBJECT_METHODS = [
         :get,
-        :post,
         :delete
       ].freeze
 
@@ -15,10 +14,6 @@ module SmsGlobal
 
       def all(params = {})
         get(nil, params)
-      end
-
-      def send(params = {})
-        post(params)
       end
 
       def delete(id)

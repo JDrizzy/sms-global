@@ -10,6 +10,8 @@ module SmsGlobal
                 :api_version
 
     object :sms
+    object :sms_incoming
+    object :shared_pool
 
     def initialize(options = {})
       opts = options.dup
