@@ -12,6 +12,7 @@ module SmsGlobal
     object :sms
     object :sms_incoming
     object :shared_pool
+    object :dedicated_number
 
     def initialize(options = {})
       opts = options.dup

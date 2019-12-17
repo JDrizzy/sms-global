@@ -8,6 +8,7 @@ require 'sms_global/object/request'
 require 'sms_global/object/sms'
 require 'sms_global/object/sms_incoming'
 require 'sms_global/object/shared_pool'
+require 'sms_global/object/dedicated_number'
 
 require 'sms_global/exceptions'
 require 'sms_global/client'
