@@ -5,7 +5,9 @@ module SmsGlobal
 
       OBJECT_METHODS = [
         :get,
-        :post
+        :post,
+        :delete,
+        :patch
       ].freeze
     end
   end
