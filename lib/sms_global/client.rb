@@ -10,6 +10,7 @@ module SmsGlobal
                 :api_version
 
     object :auto_topup
+    object :contact
     object :sms
     object :sms_incoming
     object :shared_pool
