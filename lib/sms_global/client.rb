@@ -11,6 +11,7 @@ module SmsGlobal
 
     object :auto_topup
     object :contact
+    object :group
     object :sms
     object :sms_incoming
     object :shared_pool

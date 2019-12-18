@@ -7,6 +7,7 @@ require 'sms_global/object/request'
 
 require 'sms_global/object/auto_topup'
 require 'sms_global/object/contact'
+require 'sms_global/object/group'
 require 'sms_global/object/sms'
 require 'sms_global/object/sms_incoming'
 require 'sms_global/object/shared_pool'
