@@ -9,20 +9,8 @@ module SmsGlobal
         :delete
       ].freeze
 
-      def find(id)
-        get(id)
-      end
-
-      def all(params = {})
-        get(nil, params)
-      end
-
       def send(params = {})
         post(params)
-      end
-
-      def delete(id)
-        super(id)
       end
     end
   end

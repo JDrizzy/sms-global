@@ -6,10 +6,6 @@ module SmsGlobal
       OBJECT_METHODS = [
         :get
       ].freeze
-
-      def all(params = {})
-        get(nil, params)
-      end
     end
   end
 end

@@ -7,6 +7,22 @@ module SmsGlobal
         @client = client
       end
 
+      def find(id)
+        get(id)
+      end
+
+      def all(params = {})
+        get(nil, params)
+      end
+
+      def create(params = {})
+        post(params)
+      end
+
+      def update(id, params = {})
+        patch(id, params)
+      end
+
       def get(id, params = {})
         if method_supported?(:get)
           url, action = build_url(child_path: object_name, child_id: id)

@@ -7,10 +7,6 @@ module SmsGlobal
         :get,
         :delete
       ].freeze
-
-      def all(params = {})
-        get(nil, params)
-      end
     end
   end
 end
