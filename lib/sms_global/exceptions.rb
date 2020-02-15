@@ -1,5 +1,6 @@
-module SmsGlobal
+# frozen_string_literal: true
 
+module SmsGlobal
   class SmsGlobalError < StandardError; end
 
   class ApiException < SmsGlobalError
@@ -7,9 +8,7 @@ module SmsGlobal
       @message = message
     end
 
-    def message
-      @message
-    end
+    attr_reader :message
   end
 
   class UnauthorizedException < SmsGlobalError

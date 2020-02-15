@@ -2,13 +2,16 @@
 
 module SmsGlobal
   module Object
-    class SmsIncoming < Base
-      OBJECT = 'sms-incoming'
+    class CreditBalance < Base
+      OBJECT = 'user/credit-balance'
 
       OBJECT_METHODS = %i[
         get
-        delete
       ].freeze
+
+      def display
+        all
+      end
     end
   end
 end

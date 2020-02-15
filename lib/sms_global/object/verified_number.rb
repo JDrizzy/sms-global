@@ -2,12 +2,11 @@
 
 module SmsGlobal
   module Object
-    class SmsIncoming < Base
-      OBJECT = 'sms-incoming'
+    class VerifiedNumber < Base
+      OBJECT = 'user/verified-numbers'
 
       OBJECT_METHODS = %i[
         get
-        delete
       ].freeze
     end
   end

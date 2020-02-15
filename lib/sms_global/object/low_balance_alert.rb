@@ -2,12 +2,12 @@
 
 module SmsGlobal
   module Object
-    class SmsIncoming < Base
-      OBJECT = 'sms-incoming'
+    class LowBalanceAlert < Base
+      OBJECT = 'user/low-balance-alerts'
 
       OBJECT_METHODS = %i[
         get
-        delete
+        put
       ].freeze
     end
   end

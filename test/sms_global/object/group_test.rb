@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 # rake test TEST=test/sms_global/object/group_test.rb
 
 class SmsGlobal::Object::GroupTest < MiniTest::Test
@@ -12,7 +14,7 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
   def test_all
     stub_request(:get, /group/)
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           groups: [
             {
@@ -33,9 +35,9 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
 
   def test_find
     test_id = 2
-    stub_request(:get, /group\/#{test_id}/)
+    stub_request(:get, %r{group/#{test_id}})
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           id: test_id,
           name: 'group 2',
@@ -53,7 +55,7 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
   def test_create
     stub_request(:post, /group/)
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           name: 'group 3',
           keyword: 'test',
@@ -62,12 +64,12 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
         }.to_json
       )
 
-    response = @client.group.create({
+    response = @client.group.create(
       name: 'group 3',
       keyword: 'test',
       isGlobal: false,
       defaultOrigin: '0422222222'
-    })
+    )
     assert_equal response[:name], 'group 3'
   end
 
@@ -75,7 +77,7 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
     test_id = 3
     stub_request(:patch, /group/)
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           name: 'group 4',
           keyword: 'test',
@@ -84,12 +86,11 @@ class SmsGlobal::Object::GroupTest < MiniTest::Test
         }.to_json
       )
 
-    response = @client.group.update(test_id, {
-      name: 'group 4',
-      keyword: 'testing',
-      isGlobal: true,
-      defaultOrigin: '0433333333'
-    })
+    response = @client.group.update(test_id,
+                                    name: 'group 4',
+                                    keyword: 'testing',
+                                    isGlobal: true,
+                                    defaultOrigin: '0433333333')
     assert_equal response[:name], 'group 4'
   end
 end

@@ -2,12 +2,11 @@
 
 module SmsGlobal
   module Object
-    class SmsIncoming < Base
-      OBJECT = 'sms-incoming'
+    class SubAccount < Base
+      OBJECT = 'user/sub-account'
 
       OBJECT_METHODS = %i[
-        get
-        delete
+        post
       ].freeze
     end
   end

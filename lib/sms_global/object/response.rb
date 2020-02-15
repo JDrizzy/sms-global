@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module SmsGlobal
@@ -6,18 +8,16 @@ module SmsGlobal
       attr_reader :results
 
       def initialize(response)
+        return if response.blank?
+
         @results = nil
-        if !response.blank?
-          @response = JSON.parse(response, symbolize_names: true)
-          if @response.has_key?(:value)
-            @response = @response[:value]
-          end
-          process
-        end
+        @response = JSON.parse(response, symbolize_names: true)
+        @response = @response[:value] if @response.key?(:value)
+        process
       end
 
       def self.success?(status)
-        status == 200 || status == 201
+        [200, 201].include?(status)
       end
 
       def self.deleted?(status)
@@ -42,16 +42,16 @@ module SmsGlobal
       end
 
       def convert(data)
-        result = {}    
+        result = {}
         data.each do |key, value|
-          if value.is_a?(Hash)
-            result[convert_to_snake_case_symbol(key)] = convert(value)
-          else
-            result[convert_to_snake_case_symbol(key)] = value
-          end
+          result[convert_to_snake_case_symbol(key)] = if value.is_a?(Hash)
+                                                        convert(value)
+                                                      else
+                                                        value
+                                                      end
         end
 
-        return result
+        result
       end
 
       def convert_to_snake_case_symbol(value)

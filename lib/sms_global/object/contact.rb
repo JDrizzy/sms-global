@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module SmsGlobal
   module Object
     class Contact < Base
-      OBJECT = 'contact'.freeze
+      OBJECT = 'contact'
 
-      OBJECT_METHODS = [
-        :get,
-        :patch,
-        :delete
+      OBJECT_METHODS = %i[
+        get
+        patch
+        delete
       ].freeze
     end
   end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 # rake test TEST=test/sms_global/object/sms_incoming_test.rb
 
 class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
@@ -12,9 +14,9 @@ class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
   def test_find
     test_id = 1
 
-    stub_request(:get, /sms-incoming\/(#{test_id})/)
+    stub_request(:get, %r{sms-incoming/(#{test_id})})
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           id: test_id,
           origin: '123',
@@ -24,7 +26,7 @@ class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
           dateTime: ''
         }.to_json
       )
-    
+
     response = @client.sms_incoming.find(test_id)
     assert_equal response[:id], test_id
   end
@@ -32,7 +34,7 @@ class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
   def test_all
     stub_request(:get, /sms-incoming/)
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           messages: [
             {
@@ -47,7 +49,6 @@ class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
         }.to_json
       )
 
-    
     response = @client.sms_incoming.all
     assert_equal response[:messages].first[:id], 2
   end
@@ -55,9 +56,9 @@ class SmsGlobal::Object::SmsIncomingTest < MiniTest::Test
   def test_delete
     test_id = 3
 
-    stub_request(:delete, /sms-incoming\/(#{test_id})/)
-      .to_return(status: 204, body: "")
-    
+    stub_request(:delete, %r{sms-incoming/(#{test_id})})
+      .to_return(status: 204, body: '')
+
     assert @client.sms_incoming.delete(test_id)
   end
 end

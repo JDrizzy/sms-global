@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module SmsGlobal
   module Object
     class Sms < Base
-      OBJECT = 'sms'.freeze
+      OBJECT = 'sms'
 
-      OBJECT_METHODS = [
-        :get,
-        :post,
-        :delete
+      OBJECT_METHODS = %i[
+        get
+        post
+        delete
       ].freeze
 
       def send(params = {})

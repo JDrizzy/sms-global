@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 # rake test TEST=test/sms_global/object/dedicated_number_test.rb
 
 class SmsGlobal::Object::DedicatedNumberTest < MiniTest::Test
@@ -12,7 +14,7 @@ class SmsGlobal::Object::DedicatedNumberTest < MiniTest::Test
   def test_all
     stub_request(:get, /dedicated-number/)
       .to_return(
-        status: 200, 
+        status: 200,
         body: {
           dedicatedNumbers: [
             {
@@ -23,7 +25,6 @@ class SmsGlobal::Object::DedicatedNumberTest < MiniTest::Test
         }.to_json
       )
 
-    
     response = @client.dedicated_number.all
     assert_equal response[:dedicated_numbers].first[:id], 1
   end

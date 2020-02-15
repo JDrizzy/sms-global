@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module SmsGlobal
   class Client
     extend SmsGlobal::Object::Helper
 
-    URL = 'api.smsglobal.com'.freeze
+    URL = 'api.smsglobal.com'
 
     attr_reader :key,
                 :secret,
@@ -16,6 +18,11 @@ module SmsGlobal
     object :sms_incoming
     object :shared_pool
     object :dedicated_number
+    object :credit_balance
+    object :verified_number
+    object :sub_account
+    object :low_balance_alert
+    object :opt_out
 
     def initialize(options = {})
       opts = options.dup
